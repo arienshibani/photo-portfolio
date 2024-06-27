@@ -1,7 +1,5 @@
 <script>
-  import { onMount } from 'svelte';
   import { writable } from 'svelte/store';
-
 
   let photos = [
     { src: 'https://ik.imagekit.io/ari/2022ischia001.JPG?updatedAt=1719499287997.jpg', alt: 'Photo 1' },
@@ -38,7 +36,6 @@
 
   .main-image-container {
     flex: 1;
-    display: flex;
     justify-content: center;
     align-items: center;
     max-width: 100%;
@@ -59,8 +56,10 @@
     margin-top: 1em;
     overflow-x: auto; /* Allow horizontal scrolling on small screens */
     white-space: nowrap; /* Prevent line break and keep thumbnails in a row */
-    width: 100%;
-
+    width: 80vw;
+    /* Black scrollbar  */
+    scrollbar-color: #ffffff rgb(0, 0, 0);
+    scrollbar-width: thin;
   }
 
   .thumbnail {
@@ -70,7 +69,7 @@
     width: 100px; /* Adjust thumbnail size as needed */
     height: 100px; /* Adjust thumbnail size as needed */
     flex: 0 0 auto; /* Prevent flex items from shrinking */
-    filter: invert(1);
+    filter: invert(1); /* Negative effect */
     opacity: 50%;
   }
 
@@ -84,6 +83,10 @@
       width: 80px; /* Adjust thumbnail size for mobile */
       height: 80px; /* Adjust thumbnail size for mobile */
     }
+
+    .main-image-container {
+      max-height: 50vh; /* Adjust main image height for mobile */
+    }
   }
 
   button{
@@ -93,15 +96,17 @@
 
   p{
     font-size: 1em;
+    width: 10px;
     font-family: 'Arial', sans-serif;
     font-weight: bold;
-  }
+}
 </style>
 
 <main>
-  <p>Arien Shibani</p>
+
   <!-- Main image container -->
   <div class="main-image-container">
+    <p>Arien Shibani</p>
     {#if $currentPhoto}
       <img src={$currentPhoto.src} alt={$currentPhoto.alt} class="main-image" />
     {/if}
