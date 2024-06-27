@@ -100,13 +100,22 @@
     font-family: 'Arial', sans-serif;
     font-weight: bold;
 }
+
+a{
+  text-decoration: none;
+  color: white;
+}
 </style>
 
 <main>
 
   <!-- Main image container -->
   <div class="main-image-container">
-    <p>Arien Shibani</p>
+
+    <a href="/about">
+      <p>Arien Shibani</p>
+    </a>
+
     {#if $currentPhoto}
       <img src={$currentPhoto.src} alt={$currentPhoto.alt} class="main-image" />
     {/if}

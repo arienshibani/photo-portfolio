@@ -33,6 +33,18 @@
       box-sizing: border-box;
     }
 
+    p{
+        font-weight: normal;
+    }
+
+    h1{
+        font-weight: bold;
+        margin-top: 5em;
+    }
+
+    a{
+        color: white;
+    }
 
   </style>
 
@@ -40,7 +52,14 @@
 
     <!-- Main image container -->
     <div class="main-image-container">
-      <p>About</p>
+        <h1>Who's Arien Shibani</h1>
+        <p>He takes pictures with his fancy camera.</p>
+
+        <h1>Can i buy his work?</h1>
+        <p>Not everything is for sale. </p>
+
+        <h1>Can I use his work for something?</h1>
+        <p>Probably. Send me a <a href="mailto:aaari94@gmail.com">mail</a></p>
 
     </div>
 
