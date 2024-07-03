@@ -1,27 +1,63 @@
 <script>
-  import { writable } from 'svelte/store';
+import { writable } from "svelte/store";
 
-  let photos = [
-    { src: 'https://ik.imagekit.io/ari/2022ischia001.JPG?updatedAt=1719499287997.jpg', alt: 'Photo 1' },
-    { src: 'https://ik.imagekit.io/ari/2022ischia02?updatedAt=1719498858408.jpg', alt: 'Photo 2' },
-    { src: 'https://ik.imagekit.io/ari/2022ischia03?updatedAt=1719498886685.jpg', alt: 'Photo 3' },
-  ];
+let photos = [
+	{ src: "https://ik.imagekit.io/ari/2022ischia001", alt: "Ischia 01" },
+	{ src: "https://ik.imagekit.io/ari/2022ischia02", alt: "Ischia 02" },
+	{ src: "https://ik.imagekit.io/ari/2022ischia03", alt: "Ischia 03" },
+	{ src: "https://ik.imagekit.io/ari/2014bergen03", alt: "Bergen 03" },
+	{ src: "https://ik.imagekit.io/ari/2014bergen02", alt: "Bergen 02" },
+	{ src: "https://ik.imagekit.io/ari/2014berlin01", alt: "Berlin 01" },
+	{ src: "https://ik.imagekit.io/ari/2014bergen01", alt: "Bergen 04" },
+	{ src: "https://ik.imagekit.io/ari/2014dublin02", alt: "Dublin 02" },
+];
 
-  // Shuffle array
-  photos.sort(() => Math.random() - 0.5);
+// Shuffle array
+photos.sort(() => Math.random() - 0.5);
+
+// Reactive variable for the current main image
+let currentPhoto = writable(photos[0]);
+
+/**
+ * @param {{ src: string; alt: string; }} photo
+ */
+const updateMainPhoto = (photo) => {
+	currentPhoto.set(photo);
+};
 
 
-  // Reactive variable for the current main image
-  let currentPhoto = writable(photos[0]);
-
-  /**
-	 * @param {{ src: string; alt: string; }} photo
-	 */
-  const updateMainPhoto = (photo) => {
-    currentPhoto.set(photo);
-  }
 
 </script>
+
+
+<main>
+  <div class="main-image-container">
+    <a href="/about">
+      <p>Arien Shibani</p>
+    </a>
+    {#if $currentPhoto}
+      <img
+        class="main-image"
+        src={$currentPhoto.src + "?tr=h-1032,w-1032"}
+        alt={$currentPhoto.alt}
+        fetchpriority="high"
+        loading="eager"
+      />
+    {/if}
+  </div>
+
+  <div class="thumbnail-strip" >
+    {#each photos as photo}
+      <button type="button" on:click={() => updateMainPhoto(photo)}>
+        <img
+          class="thumbnail"
+          src={photo.src + "?tr=h-100,w-100"}
+          alt={photo.alt}
+          />
+      </button>
+    {/each}
+  </div>
+</main>
 
 <style>
   main {
@@ -38,8 +74,8 @@
     flex: 1;
     justify-content: center;
     align-items: center;
-    max-width: 100%;
-    max-height: 80vh; /* Ensure the image does not exceed 80% of the viewport height */
+    max-width: 1062px;
+    max-height: 1062px; /* Ensure the image does not exceed 80% of the viewport height */
     overflow: hidden;
   }
 
@@ -53,7 +89,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 1em;
+    margin-top: 20px;
     overflow-x: auto; /* Allow horizontal scrolling on small screens */
     white-space: nowrap; /* Prevent line break and keep thumbnails in a row */
     width: 80vw;
@@ -106,27 +142,3 @@ a{
   color: white;
 }
 </style>
-
-<main>
-
-  <!-- Main image container -->
-  <div class="main-image-container">
-
-    <a href="/about">
-      <p>Arien Shibani</p>
-    </a>
-
-    {#if $currentPhoto}
-      <img src={$currentPhoto.src} alt={$currentPhoto.alt} class="main-image" />
-    {/if}
-  </div>
-
-  <!-- Thumbnail strip -->
-  <div class="thumbnail-strip">
-    {#each photos as photo}
-      <button type="button"  on:click={() => updateMainPhoto(photo)}>
-        <img class="thumbnail" src={photo.src} alt={photo.alt} />
-      </button>
-    {/each}
-  </div>
-</main>
