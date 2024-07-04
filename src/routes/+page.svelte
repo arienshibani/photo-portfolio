@@ -12,9 +12,6 @@ let photos = [
 	{ src: "https://ik.imagekit.io/ari/2014dublin02", alt: "Dublin 02" },
 ];
 
-// Shuffle array
-photos.sort(() => Math.random() - 0.5);
-
 // Reactive variable for the current main image
 let currentPhoto = writable(photos[0]);
 
@@ -24,7 +21,6 @@ let currentPhoto = writable(photos[0]);
 const updateMainPhoto = (photo) => {
 	currentPhoto.set(photo);
 };
-
 
 
 </script>
@@ -47,7 +43,7 @@ const updateMainPhoto = (photo) => {
   </div>
 
   <div class="thumbnail-strip" >
-    {#each photos as photo}
+    {#each photos as photo (photo.alt)}
       <button type="button" on:click={() => updateMainPhoto(photo)}>
         <img
           class="thumbnail"
