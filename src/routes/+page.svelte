@@ -119,6 +119,10 @@ const updateMainPhoto = (photo) => {
     .main-image-container {
       max-height: 50vh; /* Adjust main image height for mobile */
     }
+
+    .thumbnail-strip{
+      margin-bottom: 10em;
+    }
   }
 
   button{
